@@ -1,0 +1,5 @@
+El programa consiste de un Script principal, Denisa_Alexandru.sh, que se basa en ejecutar a 7
+subscripts, que se encuentran en la carpeta de los Scripts. Además con este Script, se crea la carpeta de Results dentro de la carpeta en la que nos encontramos actualmente, donde se van a guardar los 4 archivos que se piden como resultado: S207.txt, WT.txt, H12.txt y D56.txt.
+Para que este Script funcione correctamente, es necesario que en el entorno en el que se ejecute sea la carpeta Denisa_Alexandru_awk, ya que los archivos de los datos, resultados y Scripts están referenciados a esta carpeta.
+En la carpeta Data están los 3 ficheros de datos iniciales y se van a añadir los ficheros de datos procesados a medida que se van generando, siendo estos ficheros los que se van a ir usando para obtener los Resultados finales.
+

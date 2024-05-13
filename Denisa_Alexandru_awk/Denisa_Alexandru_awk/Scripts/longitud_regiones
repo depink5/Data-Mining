@@ -1,0 +1,13 @@
+#!/usr/bin/awk -f
+#Script para calcular las logitudes de cada gen
+BEGIN { 
+# Se genera una cabecera del acrhivo donde se van a guardar los resultados
+print "#GENES\tlocus_tag\tregion_length"
+}
+{
+#La longitud de la región se calcula mediante la resta del fin de la región menos el inicio de la región
+region_length=$4-$3
+#Se imprimen los datos necesarios de cad columna, para posteriormente guardarse en el fichero correspondiente
+print $2"\t"$1"\t"region_length;
+}
+

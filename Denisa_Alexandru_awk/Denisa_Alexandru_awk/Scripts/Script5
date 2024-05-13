@@ -1,0 +1,8 @@
+#!/bin/bash
+#Script que se usa para añadir las descripciones de los genes los archivos RPKM y al fichero de las medias de los RPKM
+#Primero se deben ordenar los ficheros. El fichero de las descripciones se ordenó en el Script1, por lo que no procede a ordenarse en este Script
+#Segundo se utiliza la opción join -a 1 para no perder los genes que no tengan descripción
+sort -k1,1 Data/RPKM.tsv > Data/RPKM_sorted.tsv
+join -a 1 Data/RPKM_sorted.tsv Data/prot_sorted.tsv | tr " " "\t" > Data/RPKM1.tsv
+sort -k1,1 Data/RPKM_media.tsv > Data/RPKM_media_sorted.tsv
+join -a 1 Data/RPKM_media_sorted.tsv Data/prot_sorted.tsv | tr " " "\t" > Data/RPKM1_media.tsv

@@ -1,0 +1,16 @@
+#!/bin/bash
+#Script para obtener los datos de interés de los ficheros .gff y .faa
+# Del fichero .gff se obtienen las anotaciones 
+grep -v "^#" Data/SL1344.gff | cut -f9 | tr ";" "\t" > Data/anotacion.tsv
+# De las anotaciones, los datos de importancia son locus_tag y old_locus_tag, que se obtienen buscando en estos datos todo los que sigue al locus_tag, ya que esto nos trae tanto locus_tag como old_locus_tag
+grep -Ro "locus_tag=.*" Data/anotacion.tsv | tr "=" "\t" | cut -f2,4  > Data/locus_tag1.tsv 
+# Del fichero .gff se obtienen los datos de inicio y fin de cada gen
+grep -v "^#" Data/SL1344.gff | cut -f4,5 > Data/inicio_fin_gen.tsv
+# Se juntan los datos de los locus_tag con los datos del inicio y fin de cada región
+paste Data/locus_tag1.tsv Data/inicio_fin_gen.tsv > Data/dat_extraidos.tsv
+# Esto sirve para obtener los locus_tag y las descripciones de los genes del archivo .faa
+grep -Ro "\[locus_tag=.*\] " Data/SL1344_translated_cds.faa | tr "]" "\t" | cut -f1,2 | tr "=" "\t" | cut -f2,4 | tr " " "-" > Data/prot.tsv
+sort Data/dat_extraidos.tsv > Data/dat_extraidos_sorted.tsv
+sort Data/prot.tsv > Data/prot_sorted.tsv
+# Se juntan los datos extraidos del fichero .gff con los datos de interés del fichero .faa
+join -a 1 Data/dat_extraidos_sorted.tsv Data/prot_sorted.tsv > Data/datos.tsv

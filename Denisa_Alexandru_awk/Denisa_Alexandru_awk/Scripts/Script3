@@ -1,0 +1,27 @@
+#!/usr/bin/awk -f
+# Este Script sirve para calcular los Reads totales de cada mutante, WT y Control
+{
+#El bucle for sirve para recorrer sólo las columnas que corresponden al número de reads.
+# Por cada columna, se suman todos los datos y el resultado se añade a un array sum
+  for(i=2; i<=11; ++i){
+    sum[i] += $i
+}
+j=11
+}
+#Tras acabar de hacer la suma de cada columna, se procede a imprimir cada dato del array repetido un número de veces que corresponde con el número de filas de cada columna
+#Esto facilita el cálculo futuro de los RPKM
+END {
+ n=1
+#El bucle while es el que se usa para imprimir de manera repetida los reads totales
+ while (n <= NR){
+#El bucle for sirve para iterar sobre el array y extraer los resultados
+ for(i=2; i <= j; ++i){
+    printf "%s", sum[i]
+    printf "\t"
+}
+    n += 1
+    printf "\n"
+}
+}
+
+

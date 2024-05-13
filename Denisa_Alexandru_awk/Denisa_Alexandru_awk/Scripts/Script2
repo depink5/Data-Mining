@@ -1,0 +1,10 @@
+#!/bin/bash
+#Script para juntar en un único archivo los datos de los Read counts y de la longitud de los genes, además de los locus_tag
+#Es importante ordenar primero las primeras columnas de los dos archivos que se van a juntar
+sort Data/read_counts.tsv > Data/read_counts_sorted.tsv
+sort -k1,1 Data/tag_length.tsv > Data/tag_lengths_sorted.tsv
+#Se utiliza join -a 1 para mantener todas las filas comunes y no comunes del archivo read_counts.tsv, y eliminar las filas no comunes del archivo de los tag_lengths
+join -a 1 Data/read_counts_sorted.tsv Data/tag_lengths_sorted.tsv > Data/datos_finales.tsv
+#Esto se hace ya que se pierde el formato de tabla típico de los ficheros .tsv
+cat Data/datos_finales.tsv | tr " " "\t" > Data/datos_finales1.tsv
+rm Data/datos_finales.tsv
